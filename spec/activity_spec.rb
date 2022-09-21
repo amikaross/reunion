@@ -37,4 +37,27 @@ RSpec.describe Activity do
       expect(@activity.total_cost).to eq(60)
     end
   end
+
+  describe "#split" do 
+    before(:each) do 
+      @activity.add_participant("Maria", 20)
+      @activity.add_participant("Luther", 40)
+    end
+
+    it "splits the total_cost by the number of participants" do 
+      expect(@activity.total_cost).to eq(60)
+      expect(@activity.split).to eq(30)
+    end
+  end
+
+  describe "#owed" do 
+    before(:each) do 
+      @activity.add_participant("Maria", 20)
+      @activity.add_participant("Luther", 40)
+    end
+
+    it "returns a hash with participant names => amount owed" do 
+      expect(@activity.owed).to eq({"Maria"=>10, "Luther"=>-10})
+    end
+  end
 end
